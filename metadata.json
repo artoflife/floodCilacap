@@ -1,0 +1,906 @@
+{
+  "P25": 1.400000000000007,
+  "P50": 12.600000000000016,
+  "P75": 37.300000000000004,
+  "features": [
+    "jarak_km_matrix",
+    "risk_weight",
+    "RH",
+    "RR"
+  ],
+  "classes": {
+    "0": "Fastest",
+    "1": "Safest",
+    "2": "Balanced"
+  },
+  "accuracy": 0.9054401292122458,
+  "kappa": 0.8321949804540586,
+  "n_shelters": 177,
+  "shelters": [
+    {
+      "nama": "Balai Desa Klumprit",
+      "lat": -7.661985721,
+      "lon": 109.3585673
+    },
+    {
+      "nama": "Balai Desa Panulisan Barat",
+      "lat": -7.30311,
+      "lon": 108.573078
+    },
+    {
+      "nama": "Balai Desa Bulupayung",
+      "lat": -7.579981845761614,
+      "lon": 108.7853295508966
+    },
+    {
+      "nama": "Balai Desa Tinggarjaya",
+      "lat": -7.480595869,
+      "lon": 108.7669981
+    },
+    {
+      "nama": "Balai Desa Bojong",
+      "lat": -7.608163551,
+      "lon": 108.9271265
+    },
+    {
+      "nama": "Balai Desa Padangjaya",
+      "lat": -7.312561715923866,
+      "lon": 108.78564673693214
+    },
+    {
+      "nama": "Balai Desa Wlahar",
+      "lat": -7.667846,
+      "lon": 109.133921
+    },
+    {
+      "nama": "Balai Desa Bulaksari",
+      "lat": -7.523812975,
+      "lon": 108.8887375
+    },
+    {
+      "nama": "Balai Desa Cimrutu",
+      "lat": -7.619308542,
+      "lon": 108.8027201
+    },
+    {
+      "nama": "Balai Desa Bingkeng",
+      "lat": -7.2371112160104465,
+      "lon": 108.59272960668014
+    },
+    {
+      "nama": "Balai Desa Grugu",
+      "lat": -7.645197858,
+      "lon": 108.9126578
+    },
+    {
+      "nama": "Balai Desa Cilopadang",
+      "lat": -7.304095476590585,
+      "lon": 108.7902956932206
+    },
+    {
+      "nama": "Balai Desa Kesugihan Kidul",
+      "lat": -7.622897,
+      "lon": 109.120648
+    },
+    {
+      "nama": "Balai Desa Purwodadi",
+      "lat": -7.600792841,
+      "lon": 108.7623893
+    },
+    {
+      "nama": "Balai Desa Sidasari",
+      "lat": -7.384284459,
+      "lon": 108.7801567
+    },
+    {
+      "nama": "Balai Desa Tegalsari",
+      "lat": -7.485581773,
+      "lon": 108.7744421
+    },
+    {
+      "nama": "Balai Desa Cibalung",
+      "lat": -7.320312734352611,
+      "lon": 108.8786737778771
+    },
+    {
+      "nama": "Balai Desa Penisihan",
+      "lat": -7.585280064,
+      "lon": 109.1576929
+    },
+    {
+      "nama": "Balai Desa Mujur Lor",
+      "lat": -7.599457594,
+      "lon": 109.2480218
+    },
+    {
+      "nama": "Balai Desa Gunungreja",
+      "lat": -7.479329968,
+      "lon": 108.7856679
+    },
+    {
+      "nama": "Balai Desa Ciklapa",
+      "lat": -7.506522388,
+      "lon": 108.8105504
+    },
+    {
+      "nama": "Balai Desa Mandala",
+      "lat": -7.356992217695421,
+      "lon": 108.88791346224504
+    },
+    {
+      "nama": "Balai Desa Jangrana",
+      "lat": -7.639157,
+      "lon": 109.063973
+    },
+    {
+      "nama": "Balai Desa Gentasari",
+      "lat": -7.601690492,
+      "lon": 109.2195852
+    },
+    {
+      "nama": "Balai Desa Kedungbenda",
+      "lat": -7.667346462,
+      "lon": 109.3745851
+    },
+    {
+      "nama": "Balai Desa Karangbenda",
+      "lat": -7.672624198676923,
+      "lon": 109.17602077782053
+    },
+    {
+      "nama": "Balai Desa Dondong",
+      "lat": -7.61863,
+      "lon": 109.066613
+    },
+    {
+      "nama": "Kelurahan Donan",
+      "lat": -7.713436943,
+      "lon": 109.0009423
+    },
+    {
+      "nama": "Balai Desa Karangreja",
+      "lat": -7.624295,
+      "lon": 109.146347
+    },
+    {
+      "nama": "Balai Desa Pesanggrahan",
+      "lat": -7.594238,
+      "lon": 109.114316
+    },
+    {
+      "nama": "Balai Desa Nusajati",
+      "lat": -7.597090701,
+      "lon": 109.1991133
+    },
+    {
+      "nama": "Balai Desa Banjareja",
+      "lat": -7.686421459,
+      "lon": 109.3734922
+    },
+    {
+      "nama": "Balai Desa Sampang",
+      "lat": -7.56620612,
+      "lon": 109.2003484
+    },
+    {
+      "nama": "Kelurahan Tegalkamulyan",
+      "lat": -7.721081813,
+      "lon": 109.0226969
+    },
+    {
+      "nama": "Balai Desa Kalijeruk",
+      "lat": -7.578984,
+      "lon": 108.936294
+    },
+    {
+      "nama": "Balai Desa Mentasan",
+      "lat": -7.582681,
+      "lon": 108.957987
+    },
+    {
+      "nama": "Balai Desa Sindangsari",
+      "lat": -7.300439235287598,
+      "lon": 108.76743410896202
+    },
+    {
+      "nama": "Balai Desa Cilibang",
+      "lat": -7.578631,
+      "lon": 109.018484
+    },
+    {
+      "nama": "Balai Desa Bantarpanjang",
+      "lat": -7.359637040358087,
+      "lon": 108.85627253527534
+    },
+    {
+      "nama": "Balai Desa Cilempuyang",
+      "lat": -7.342702844266789,
+      "lon": 108.83395417973034
+    },
+    {
+      "nama": "Balai Desa Panimbang",
+      "lat": -7.367549798741719,
+      "lon": 108.86583925009202
+    },
+    {
+      "nama": "Balai Desa Penggalang",
+      "lat": -7.653467,
+      "lon": 109.137016
+    },
+    {
+      "nama": "Balai Desa Babakan",
+      "lat": -7.662701,
+      "lon": 108.932634
+    },
+    {
+      "nama": "Balai Desa Mekarsari",
+      "lat": -7.400022668,
+      "lon": 108.7449833
+    },
+    {
+      "nama": "Balai Desa Nusawungu",
+      "lat": -7.64816393,
+      "lon": 109.3441551
+    },
+    {
+      "nama": "Balai Desa Kuripan Kidul",
+      "lat": -7.6589,
+      "lon": 109.080926
+    },
+    {
+      "nama": "Balai Desa Brebeg",
+      "lat": -7.626279898675562,
+      "lon": 109.00042486088437
+    },
+    {
+      "nama": "Balai Desa Slarang",
+      "lat": -7.659593,
+      "lon": 109.113482
+    },
+    {
+      "nama": "Balai Desa Nusawangkal",
+      "lat": -7.669997397,
+      "lon": 109.3432928
+    },
+    {
+      "nama": "Balai Desa Paberasan",
+      "lat": -7.588606145,
+      "lon": 109.2306704
+    },
+    {
+      "nama": "Kelurahan Cilacap",
+      "lat": -7.737956464,
+      "lon": 109.0136191
+    },
+    {
+      "nama": "Balai Desa Sikampuh",
+      "lat": -7.623278803,
+      "lon": 109.1969554
+    },
+    {
+      "nama": "Balai Desa Sidamukti",
+      "lat": -7.609405948,
+      "lon": 108.7556989
+    },
+    {
+      "nama": "Balai Desa Ciwuni",
+      "lat": -7.604368,
+      "lon": 109.082218
+    },
+    {
+      "nama": "Balai Desa Madura",
+      "lat": -7.330648739856452,
+      "lon": 108.6440463888098
+    },
+    {
+      "nama": "Balai Desa Mujur",
+      "lat": -7.612273016,
+      "lon": 109.2523055
+    },
+    {
+      "nama": "Balai Desa Adipala",
+      "lat": -7.660199,
+      "lon": 109.155491
+    },
+    {
+      "nama": "Balai Desa Keleng",
+      "lat": -7.595349,
+      "lon": 109.11045
+    },
+    {
+      "nama": "Kelurahan Sidanegara",
+      "lat": -7.711789036,
+      "lon": 109.0185056
+    },
+    {
+      "nama": "Balai Desa Karangjengkol",
+      "lat": -7.602219,
+      "lon": 109.090462
+    },
+    {
+      "nama": "SMA Al-Irsyad Cilacap",
+      "lat": -7.7273491,
+      "lon": 109.0044836
+    },
+    {
+      "nama": "Kelurahan Kutawaru",
+      "lat": -7.695870966,
+      "lon": 108.9896321
+    },
+    {
+      "nama": "Balai Desa Kalisabuk",
+      "lat": -7.658169,
+      "lon": 109.098666
+    },
+    {
+      "nama": "Balai Desa Adireja Kulon",
+      "lat": -7.66096,
+      "lon": 109.159231
+    },
+    {
+      "nama": "Balai Desa Pahonjean",
+      "lat": -7.324605442665611,
+      "lon": 108.73858679137896
+    },
+    {
+      "nama": "Balai Desa Ujunggagak",
+      "lat": -7.666216,
+      "lon": 108.819289
+    },
+    {
+      "nama": "Balai Desa Patimuan",
+      "lat": -7.583574535,
+      "lon": 108.7608936
+    },
+    {
+      "nama": "Balai Desa Sudagaran",
+      "lat": -7.4901238,
+      "lon": 108.8095576
+    },
+    {
+      "nama": "Balai Desa Adimulya",
+      "lat": -7.332960915849882,
+      "lon": 108.68843248947638
+    },
+    {
+      "nama": "SMP Negeri 3 Cilacap",
+      "lat": -7.728074,
+      "lon": 109.001426
+    },
+    {
+      "nama": "SD Al-Irsyad 01",
+      "lat": -7.727568,
+      "lon": 109.006065
+    },
+    {
+      "nama": "Asrama Putri Stikes Al-Irsyad",
+      "lat": -7.711226,
+      "lon": 109.020901
+    },
+    {
+      "nama": "Balai Desa Panikel",
+      "lat": -7.632277,
+      "lon": 108.855158
+    },
+    {
+      "nama": "Balai Desa Ciporos",
+      "lat": -7.381721517,
+      "lon": 108.8713846
+    },
+    {
+      "nama": "SMP Negeri 4 Cilacap",
+      "lat": -7.713808,
+      "lon": 109.0220023
+    },
+    {
+      "nama": "Balai Desa Kawunganten",
+      "lat": -7.592701,
+      "lon": 108.91958
+    },
+    {
+      "nama": "Balai Desa Adireja Wetan",
+      "lat": -7.663377,
+      "lon": 109.1669
+    },
+    {
+      "nama": "Balai Desa Mulyasari",
+      "lat": -7.316016450227107,
+      "lon": 108.7710207218418
+    },
+    {
+      "nama": "Balai Desa Cilongkrang",
+      "lat": -7.407004438152763,
+      "lon": 108.71434982998896
+    },
+    {
+      "nama": "SMA Negeri 1 Cilacap",
+      "lat": -7.713985,
+      "lon": 109.005431
+    },
+    {
+      "nama": "Balai Desa Pengawaren",
+      "lat": -7.38750728,
+      "lon": 108.8685968
+    },
+    {
+      "nama": "Balai Desa Sidareja",
+      "lat": -7.482720383,
+      "lon": 108.7920794
+    },
+    {
+      "nama": "Balai Desa Gombolharjo",
+      "lat": -7.663956,
+      "lon": 109.112655
+    },
+    {
+      "nama": "Balai Desa Binangun",
+      "lat": -7.543083188,
+      "lon": 108.918559
+    },
+    {
+      "nama": "Balai Desa Ketanggung",
+      "lat": -7.602318578,
+      "lon": 109.1984939
+    },
+    {
+      "nama": "Balai Desa Purwadadi",
+      "lat": -7.676746425,
+      "lon": 109.3430598
+    },
+    {
+      "nama": "SD Negeri Tegalreja 01",
+      "lat": -7.714913,
+      "lon": 109.005655
+    },
+    {
+      "nama": "Politeknik Negeri Cilacap",
+      "lat": -7.717469,
+      "lon": 109.019929
+    },
+    {
+      "nama": "Kelurahan Gunungsimping",
+      "lat": -7.707182957,
+      "lon": 109.0315633
+    },
+    {
+      "nama": "Balai Desa Adiraja",
+      "lat": -7.666087841147282,
+      "lon": 109.16819716425138
+    },
+    {
+      "nama": "Balai Desa Bumireja",
+      "lat": -7.5377704,
+      "lon": 108.7994195
+    },
+    {
+      "nama": "SMA Sri Mukti Cilacap",
+      "lat": -7.7083942,
+      "lon": 109.0220419
+    },
+    {
+      "nama": "Balai Desa Rejodadi",
+      "lat": -7.321355585393663,
+      "lon": 108.79762552292264
+    },
+    {
+      "nama": "Balai Desa Gandrungmanis",
+      "lat": -7.525009839,
+      "lon": 108.855699
+    },
+    {
+      "nama": "Balai Desa Cimanggu",
+      "lat": -7.347615384867863,
+      "lon": 108.83824067084493
+    },
+    {
+      "nama": "Balai Desa Klapagada",
+      "lat": -7.621023,
+      "lon": 109.151331
+    },
+    {
+      "nama": "Rusunawa",
+      "lat": -7.726168476356958,
+      "lon": 109.02217430815188
+    },
+    {
+      "nama": "Balai Desa Kamulyan",
+      "lat": -7.526990212,
+      "lon": 108.8634969
+    },
+    {
+      "nama": "kelurahan Tambakreja",
+      "lat": -7.538736939,
+      "lon": 108.7836077
+    },
+    {
+      "nama": "Balai Desa Tambakreja",
+      "lat": -7.538784807,
+      "lon": 108.7835379
+    },
+    {
+      "nama": "Balai Desa Pucung Lor",
+      "lat": -7.586622826,
+      "lon": 109.1134249
+    },
+    {
+      "nama": "Balai Desa Wanareja",
+      "lat": -7.32853370869163,
+      "lon": 108.68339457787062
+    },
+    {
+      "nama": "Balai Desa Kaliwungu",
+      "lat": -7.735575683,
+      "lon": 109.0175999
+    },
+    {
+      "nama": "Balai Desa Karangsembung",
+      "lat": -7.678502548,
+      "lon": 109.3554419
+    },
+    {
+      "nama": "Balai Desa Kawunganten Lor",
+      "lat": -7.58543,
+      "lon": 108.919056
+    },
+    {
+      "nama": "Balai Desa Segaralangu",
+      "lat": -7.442669141,
+      "lon": 108.7829382
+    },
+    {
+      "nama": "Balai Desa Karangrena",
+      "lat": -7.607614387,
+      "lon": 109.1286205
+    },
+    {
+      "nama": "Balai Desa Cisuru",
+      "lat": -7.398928326,
+      "lon": 108.7365499
+    },
+    {
+      "nama": "Balai Desa Panulisan",
+      "lat": -7.307873,
+      "lon": 108.580217
+    },
+    {
+      "nama": "Balai Desa Cisumur",
+      "lat": -7.532618723,
+      "lon": 108.8210025
+    },
+    {
+      "nama": "SMP N 1 Cilacap",
+      "lat": -7.7385152,
+      "lon": 109.0090731
+    },
+    {
+      "nama": "Balai Desa Bener",
+      "lat": -7.261083250655202,
+      "lon": 108.7534014098299
+    },
+    {
+      "nama": "Balai Desa Glempang",
+      "lat": -7.577773384,
+      "lon": 109.1672232
+    },
+    {
+      "nama": "Balai Desa Kuripan",
+      "lat": -7.651916,
+      "lon": 109.083396
+    },
+    {
+      "nama": "Balai Desa Karangasem",
+      "lat": -7.569695039,
+      "lon": 109.208944
+    },
+    {
+      "nama": "Balai Desa Jenang",
+      "lat": -7.300138237864985,
+      "lon": 108.75817866114352
+    },
+    {
+      "nama": "Balai Desa Karangsari",
+      "lat": -7.632979,
+      "lon": 109.135353
+    },
+    {
+      "nama": "Balai Desa Caruy",
+      "lat": -7.375954694,
+      "lon": 108.8028629
+    },
+    {
+      "nama": "Balai Desa Maos Lor",
+      "lat": -7.593684279,
+      "lon": 109.1481188
+    },
+    {
+      "nama": "Balai Desa Jambusari",
+      "lat": -7.567455,
+      "lon": 109.026833
+    },
+    {
+      "nama": "Balai Desa Bunton",
+      "lat": -7.671146035522224,
+      "lon": 109.14546175880828
+    },
+    {
+      "nama": "Balai Desa Planjan",
+      "lat": -7.623498,
+      "lon": 109.0785
+    },
+    {
+      "nama": "Balai Desa Tarisi",
+      "lat": -7.39470838816254,
+      "lon": 108.70133486438638
+    },
+    {
+      "nama": "Balai Desa Karangkandri",
+      "lat": -7.669975,
+      "lon": 109.084671
+    },
+    {
+      "nama": "Balai Desa Kalikudi",
+      "lat": -7.63321,
+      "lon": 109.15434
+    },
+    {
+      "nama": "Balai Desa Karangpucung",
+      "lat": -7.413007611,
+      "lon": 108.9004168
+    },
+    {
+      "nama": "Balai Desa Maos Kidul",
+      "lat": -7.607706169,
+      "lon": 109.1458109
+    },
+    {
+      "nama": "Balai Desa Sindangbarang",
+      "lat": -7.431525182,
+      "lon": 108.8898178
+    },
+    {
+      "nama": "Balai Desa Kesugihan",
+      "lat": -7.608925,
+      "lon": 109.116912
+    },
+    {
+      "nama": "Balai Desa Padangsari",
+      "lat": -7.328626531601817,
+      "lon": 108.78025856834626
+    },
+    {
+      "nama": "Balai Desa Bantarsari",
+      "lat": -7.539932226,
+      "lon": 108.8705564
+    },
+    {
+      "nama": "Balai Desa Tayemtimur",
+      "lat": -7.413687359,
+      "lon": 108.9086003
+    },
+    {
+      "nama": "Balai Desa Pegadingan",
+      "lat": -7.406187976,
+      "lon": 108.7603955
+    },
+    {
+      "nama": "Balai Desa Menganti",
+      "lat": -7.669045,
+      "lon": 109.072558
+    },
+    {
+      "nama": "Balai Desa Jatisari",
+      "lat": -7.516566535,
+      "lon": 108.8002007
+    },
+    {
+      "nama": "Balai Desa Bajing",
+      "lat": -7.627507087,
+      "lon": 109.2517692
+    },
+    {
+      "nama": "Balai Desa Sarwadadi",
+      "lat": -7.558281,
+      "lon": 108.917277
+    },
+    {
+      "nama": "Balai Desa Kutasari",
+      "lat": -7.394689384,
+      "lon": 108.8031922
+    },
+    {
+      "nama": "Balai Desa Kedungreja",
+      "lat": -7.504965751,
+      "lon": 108.7808289
+    },
+    {
+      "nama": "Balai Desa Kubangkangkung",
+      "lat": -7.620968609,
+      "lon": 108.9430662
+    },
+    {
+      "nama": "Balai Desa Karangkemiri",
+      "lat": -7.622875,
+      "lon": 109.130052
+    },
+    {
+      "nama": "Balai Desa Rawajaya",
+      "lat": -7.562052055,
+      "lon": 108.8795462
+    },
+    {
+      "nama": "Balai Desa Cisalak",
+      "lat": -7.307785089523783,
+      "lon": 108.8654459383816
+    },
+    {
+      "nama": "Balai Desa Serang",
+      "lat": -7.461139083,
+      "lon": 108.7602117
+    },
+    {
+      "nama": "Balai Desa Cinyawang",
+      "lat": -7.569886659,
+      "lon": 108.7697578
+    },
+    {
+      "nama": "Balai Desa Muktisari",
+      "lat": -7.505329682,
+      "lon": 108.8572533
+    },
+    {
+      "nama": "Balai Desa Sidamulya",
+      "lat": -7.350584341,
+      "lon": 108.6761607
+    },
+    {
+      "nama": "Balai Desa Karangjati",
+      "lat": -7.581200895,
+      "lon": 109.2224442
+    },
+    {
+      "nama": "Balai Desa Madusari",
+      "lat": -7.309033604290997,
+      "lon": 108.64718680669638
+    },
+    {
+      "nama": "Balai Desa Margasari",
+      "lat": -7.46922455,
+      "lon": 108.7502054
+    },
+    {
+      "nama": "Balai Desa Cinangsi",
+      "lat": -7.461127087,
+      "lon": 108.8814047
+    },
+    {
+      "nama": "Balai Desa Bantarmangu",
+      "lat": -7.339105124529084,
+      "lon": 108.8664505797285
+    },
+    {
+      "nama": "Balai Desa Bangunreja",
+      "lat": -7.50104298,
+      "lon": 108.7761072
+    },
+    {
+      "nama": "Balai Desa Mulyadadi",
+      "lat": -7.319125511223776,
+      "lon": 108.75173528074124
+    },
+    {
+      "nama": "Balai Desa Tayem",
+      "lat": -7.397383206,
+      "lon": 108.8990858
+    },
+    {
+      "nama": "Balai Desa Rungkang",
+      "lat": -7.438726424,
+      "lon": 108.8561115
+    },
+    {
+      "nama": "Balai Desa Sumingkir",
+      "lat": -7.624942,
+      "lon": 109.049952
+    },
+    {
+      "nama": "Balai Desa Sidaurip",
+      "lat": -7.548642749,
+      "lon": 108.8378654
+    },
+    {
+      "nama": "Balai Desa Sepatnunggal",
+      "lat": -7.244079600877812,
+      "lon": 108.74378220672055
+    },
+    {
+      "nama": "Balai Desa Dayeuhluhur",
+      "lat": -7.259731738239488,
+      "lon": 108.6116974372905
+    },
+    {
+      "nama": "Balai Desa Ujungmanik",
+      "lat": -7.644039491,
+      "lon": 108.9514281
+    },
+    {
+      "nama": "Balai Desa Cipari",
+      "lat": -7.439944017,
+      "lon": 108.7599498
+    },
+    {
+      "nama": "Balai Desa Panulisan Timur",
+      "lat": -7.30256,
+      "lon": 108.599943
+    },
+    {
+      "nama": "Balai Desa Sawangan",
+      "lat": -7.593587,
+      "lon": 108.993748
+    },
+    {
+      "nama": "Balai Desa Cibeunying",
+      "lat": -7.2945766910061725,
+      "lon": 108.74267406439527
+    },
+    {
+      "nama": "Balai Desa Pucung Kidul",
+      "lat": -7.635810464,
+      "lon": 109.2713415
+    },
+    {
+      "nama": "Balai Desa Sikanco",
+      "lat": -7.639537242,
+      "lon": 109.299082
+    },
+    {
+      "nama": "Balai Desa Hanum",
+      "lat": -7.22878372400323,
+      "lon": 108.6200864662171
+    },
+    {
+      "nama": "Balai Desa Bantar",
+      "lat": -7.353149095776255,
+      "lon": 108.70434235257424
+    },
+    {
+      "nama": "Balai Desa Jeruklegi Kulon",
+      "lat": -7.607179,
+      "lon": 109.01535
+    },
+    {
+      "nama": "Balai Desa Danasri Lor",
+      "lat": -7.639879709,
+      "lon": 109.3079376
+    },
+    {
+      "nama": "Balai Desa Gintungreja",
+      "lat": -7.570663353,
+      "lon": 108.865881
+    },
+    {
+      "nama": "Balai Desa Bolang",
+      "lat": -7.202147627995013,
+      "lon": 108.58564433552408
+    },
+    {
+      "nama": "Balai Desa Cijeruk",
+      "lat": -7.197356148363169,
+      "lon": 108.60044893735493
+    },
+    {
+      "nama": "AMN Cilacap",
+      "lat": -7.70348513473806,
+      "lon": 109.0200979788938
+    },
+    {
+      "nama": "Hotel Mutiara",
+      "lat": -7.7090125,
+      "lon": 109.0192032
+    },
+    {
+      "nama": "Balai Desa Danasri",
+      "lat": -7.645367881,
+      "lon": 109.3049447
+    }
+  ]
+}
