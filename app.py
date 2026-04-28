@@ -42,6 +42,10 @@ LOG_PATH     = "prediction_log.csv"
 CILACAP_BBOX   = (-7.79, 108.52, -7.17, 109.41)  # south, west, north, east
 CILACAP_CENTER = (-7.44, 108.96)
 
+# Graph cache path — stored alongside the model so it survives rebuilds if
+# the model/ directory is mounted as a volume.
+GRAPH_CACHE_PATH = os.path.join(os.path.dirname(__file__), "model", "cilacap_graph.graphml")
+
 # ── Constants ─────────────────────────────────────────────────
 DELAY_MAP    = {1: 1.0, 2: 1.2, 3: 1.5, 4: 2.5}
 RISK_LABELS  = {1: "Normal", 2: "Moderate", 3: "Caution", 4: "Critical"}
@@ -109,18 +113,49 @@ except Exception as e:
     logger.error(f"Shelter CSV load failed ({SHELTER_CSV}): {e}")
     df_shelters_csv = pd.DataFrame()
 
-# ── Load OSMnx Graph ──────────────────────────────────────────
-logger.info("Loading OSMnx road graph Cilacap (first boot may take 2-3 min)...")
-try:
-    G = ox.graph_from_bbox(
-        north=CILACAP_BBOX[2], south=CILACAP_BBOX[0],
-        east=CILACAP_BBOX[3],  west=CILACAP_BBOX[1],
-        network_type='drive'
-    )
-    logger.info(f"OSMnx graph loaded: {len(G.nodes)} nodes, {len(G.edges)} edges")
-except Exception as e:
-    logger.error(f"OSMnx graph load failed: {e}")
-    G = None
+# ── OSMnx Graph — lazy-loaded on first use ────────────────────
+# DO NOT call ox.graph_from_bbox() at module level.
+# Each gunicorn worker re-executes module code on boot; downloading the
+# full Cilacap road network (~62×89 km) pushes memory past the 1 GB limit
+# and triggers SIGKILL before the /health endpoint can respond.
+# _load_graph() is called inside route handlers instead.
+_G = None
+_graph_lock = Lock()
+
+
+def _load_graph():
+    """
+    Return the OSMnx road graph, loading it exactly once per process.
+    Prefer a cached GraphML file to avoid repeated downloads.
+    Thread-safe via _graph_lock.
+    """
+    global _G
+    if _G is not None:
+        return _G
+    with _graph_lock:
+        # Double-checked locking — another thread may have loaded it while
+        # we were waiting for the lock.
+        if _G is not None:
+            return _G
+        try:
+            if os.path.exists(GRAPH_CACHE_PATH):
+                logger.info("Loading OSMnx graph from cache...")
+                _G = ox.load_graphml(GRAPH_CACHE_PATH)
+                logger.info(f"OSMnx graph loaded from cache: {len(_G.nodes)} nodes")
+            else:
+                logger.info("Downloading OSMnx road graph Cilacap (first request may take 2-3 min)...")
+                _G = ox.graph_from_bbox(
+                    north=CILACAP_BBOX[2], south=CILACAP_BBOX[0],
+                    east=CILACAP_BBOX[3],  west=CILACAP_BBOX[1],
+                    network_type='drive'
+                )
+                os.makedirs(os.path.dirname(GRAPH_CACHE_PATH), exist_ok=True)
+                ox.save_graphml(_G, GRAPH_CACHE_PATH)
+                logger.info(f"OSMnx graph downloaded and cached: {len(_G.nodes)} nodes, {len(_G.edges)} edges")
+        except Exception as e:
+            logger.error(f"OSMnx graph load failed: {e}")
+            _G = None
+    return _G
 
 # ── Route Cache ───────────────────────────────────────────────
 _route_cache = {}
@@ -629,8 +664,9 @@ def evacuate():
     top3 = rf_results[:3]
 
     # ── Step 6: Dijkstra OSMnx → rute aktual top-3 ──────────
-    flood_pts   = find_nearby_flood_points(lat, lon)
-    G_weighted  = apply_risk_weights_to_graph(G.copy(), risk_weight) if G else None
+    flood_pts  = find_nearby_flood_points(lat, lon)
+    G          = _load_graph()  # lazy — safe to call per-request
+    G_weighted = apply_risk_weights_to_graph(G.copy(), risk_weight) if G else None
     routes_detail = []
 
     for item in top3:
@@ -772,7 +808,9 @@ def health():
     return jsonify({
         "status":          "ok",
         "model":           rf_model is not None,
-        "osmnx_graph":     G is not None,
+        # Graph is lazy — report whether it has been loaded yet, not whether
+        # it exists, so the healthcheck never triggers a download.
+        "osmnx_graph":     _G is not None,
         "flood_pts":       len(df_flood),
         "shelters":        len(SHELTER_DATA),
         "ors_key":         bool(ORS_KEY),
