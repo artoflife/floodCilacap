@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Navigasi Evakuasi Banjir — Kabupaten Cilacap</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0f1923; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; }
+
+  header { background: #1a2533; padding: 12px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #2E75B6; }
+  header h1 { font-size: 1.1rem; color: #fff; font-weight: 600; }
+  header .badge { background: #2E75B6; color: #fff; font-size: 0.72rem; padding: 3px 8px; border-radius: 12px; }
+
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  #map { flex: 1; }
+
+  .panel { width: 340px; background: #1a2533; overflow-y: auto; display: flex; flex-direction: column; border-left: 1px solid #2a3a4a; }
+
+  .panel-section { padding: 16px; border-bottom: 1px solid #2a3a4a; }
+  .panel-section h3 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: #7aabdb; margin-bottom: 10px; }
+
+  .form-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .form-row label { font-size: 0.78rem; color: #aaa; display: block; margin-bottom: 3px; }
+  .form-row input { width: 100%; background: #0f1923; border: 1px solid #2a3a4a; color: #e0e0e0; padding: 7px 10px; border-radius: 6px; font-size: 0.85rem; }
+  .form-row input:focus { outline: none; border-color: #2E75B6; }
+  .form-col { flex: 1; }
+
+  .btn-primary { width: 100%; background: #2E75B6; color: #fff; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: background 0.2s; }
+  .btn-primary:hover { background: #1F5C8B; }
+  .btn-primary:disabled { background: #2a3a4a; color: #666; cursor: not-allowed; }
+
+  .risk-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; }
+  .risk-1 { background: #e8f5e9; color: #2e7d32; }
+  .risk-2 { background: #fff8e1; color: #f57f17; }
+  .risk-3 { background: #fff3e0; color: #e65100; }
+  .risk-4 { background: #ffebee; color: #c62828; }
+
+  .route-card { background: #0f1923; border-radius: 8px; padding: 12px; margin-bottom: 8px; border-left: 4px solid #2a3a4a; cursor: pointer; transition: border-color 0.2s; }
+  .route-card:hover { border-left-color: #2E75B6; }
+  .route-card.fastest { border-left-color: #e53935; }
+  .route-card.safest  { border-left-color: #43a047; }
+  .route-card.balanced{ border-left-color: #fb8c00; }
+
+  .route-card .strategy-label { font-size: 0.78rem; font-weight: 700; margin-bottom: 6px; }
+  .fastest  .strategy-label { color: #ef9a9a; }
+  .safest   .strategy-label { color: #a5d6a7; }
+  .balanced .strategy-label { color: #ffcc80; }
+
+  .route-card .shelter-name { font-size: 0.88rem; color: #fff; font-weight: 600; margin-bottom: 4px; }
+  .route-card .route-stats { font-size: 0.78rem; color: #aaa; display: flex; gap: 12px; }
+
+  .proba-bar { margin-top: 6px; }
+  .proba-bar .bar-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+  .proba-bar .bar-label { font-size: 0.68rem; color: #888; width: 55px; }
+  .proba-bar .bar-bg { flex: 1; background: #2a3a4a; border-radius: 4px; height: 5px; }
+  .proba-bar .bar-fill { height: 5px; border-radius: 4px; }
+  .proba-bar .bar-val { font-size: 0.68rem; color: #888; width: 35px; text-align: right; }
+
+  .info-row { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 4px 0; border-bottom: 1px solid #2a3a4a; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .key { color: #888; }
+  .info-row .val { color: #fff; font-weight: 600; }
+
+  .loading { text-align: center; padding: 20px; color: #7aabdb; font-size: 0.85rem; }
+  .empty-state { text-align: center; padding: 30px 20px; color: #555; font-size: 0.82rem; }
+
+  .coords-display { font-size: 0.75rem; color: #555; text-align: center; padding: 6px; background: #0f1923; border-radius: 6px; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<header>
+  <div style="width:32px;height:32px;background:#2E75B6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🌊</div>
+  <div>
+    <h1>Sistem Navigasi Evakuasi Banjir</h1>
+    <span style="font-size:0.72rem;color:#7aabdb;">Kabupaten Cilacap — Random Forest Adaptive Routing</span>
+  </div>
+  <div class="badge" style="margin-left:auto;">Accuracy 91.68%</div>
+</header>
+
+<div class="main">
+  <div id="map"></div>
+
+  <div class="panel">
+
+    <!-- INPUT CUACA -->
+    <div class="panel-section">
+      <h3>🌧 Kondisi Cuaca</h3>
+      <div class="form-row">
+        <div class="form-col">
+          <label>RR Hari Ini (mm)</label>
+          <input type="number" id="rr" value="22" min="0" step="0.1">
+        </div>
+        <div class="form-col">
+          <label>RH (%)</label>
+          <input type="number" id="rh" value="87" min="0" max="100">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label>RR Kemarin (mm)</label>
+          <input type="number" id="rr_yesterday" value="35" min="0" step="0.1">
+        </div>
+        <div class="form-col">
+          <label>RR 2 Hari Lalu (mm)</label>
+          <input type="number" id="rr_2days" value="28" min="0" step="0.1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label>Kejadian Banjir (0/1)</label>
+          <input type="number" id="kejadian" value="0" min="0" max="1">
+        </div>
+      </div>
+    </div>
+
+    <!-- KOORDINAT -->
+    <div class="panel-section">
+      <h3>📍 Titik Evakuasi</h3>
+      <p style="font-size:0.78rem;color:#888;margin-bottom:8px;">Klik pada peta atau masukkan koordinat manual</p>
+      <div class="form-row">
+        <div class="form-col">
+          <label>Latitude</label>
+          <input type="number" id="lat" value="-7.7267" step="0.0001">
+        </div>
+        <div class="form-col">
+          <label>Longitude</label>
+          <input type="number" id="lon" value="109.0153" step="0.0001">
+        </div>
+      </div>
+      <div class="coords-display" id="coords-display">-7.7267, 109.0153</div>
+    </div>
+
+    <!-- TOMBOL -->
+    <div class="panel-section">
+      <button class="btn-primary" id="btn-search" onclick="searchRoutes()">
+        🔍 Cari Rute Evakuasi
+      </button>
+    </div>
+
+    <!-- KONDISI RISIKO -->
+    <div class="panel-section" id="risk-section" style="display:none;">
+      <h3>⚠️ Kondisi Risiko</h3>
+      <div id="risk-info"></div>
+    </div>
+
+    <!-- HASIL RUTE -->
+    <div class="panel-section" id="results-section">
+      <h3>🗺 Rekomendasi Rute</h3>
+      <div id="results-body">
+        <div class="empty-state">
+          Klik pada peta untuk memilih lokasi,<br>kemudian tekan "Cari Rute"
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ── MAP INIT ────────────────────────────────────────────────
+const map = L.map('map').setView([{{ center_lat }}, {{ center_lon }}], 11);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+let markerSrc = null;
+let routeLayers = [];
+let shelterMarkers = [];
+
+// Klik peta → set koordinat
+map.on('click', function(e) {
+  const { lat, lng } = e.latlng;
+  document.getElementById('lat').value = lat.toFixed(5);
+  document.getElementById('lon').value = lng.toFixed(5);
+  document.getElementById('coords-display').textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+  if (markerSrc) map.removeLayer(markerSrc);
+  markerSrc = L.marker([lat, lng], {
+    icon: L.divIcon({ className: '', html: '<div style="width:16px;height:16px;background:#e53935;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4)"></div>', iconAnchor:[8,8] })
+  }).addTo(map);
+});
+
+// ── CLEAR ROUTES ─────────────────────────────────────────────
+function clearRoutes() {
+  routeLayers.forEach(l => map.removeLayer(l));
+  shelterMarkers.forEach(l => map.removeLayer(l));
+  routeLayers = [];
+  shelterMarkers = [];
+}
+
+// ── SEARCH ROUTES ────────────────────────────────────────────
+async function searchRoutes() {
+  const lat = parseFloat(document.getElementById('lat').value);
+  const lon = parseFloat(document.getElementById('lon').value);
+  const rr  = parseFloat(document.getElementById('rr').value);
+  const rh  = parseFloat(document.getElementById('rh').value);
+  const rr_yesterday = parseFloat(document.getElementById('rr_yesterday').value);
+  const rr_2days     = parseFloat(document.getElementById('rr_2days').value);
+  const kejadian     = parseInt(document.getElementById('kejadian').value);
+
+  const btn = document.getElementById('btn-search');
+  btn.disabled = true;
+  btn.textContent = '⏳ Memproses...';
+
+  document.getElementById('results-body').innerHTML = '<div class="loading">Menghitung rute optimal...</div>';
+  clearRoutes();
+
+  try {
+    const res = await fetch('/api/evacuate', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({lat, lon, rr, rh, rr_yesterday, rr_2days, kejadian_banjir: kejadian})
+    });
+    const data = await res.json();
+
+    if (data.status !== 'ok') throw new Error('API error');
+
+    renderRiskInfo(data.input);
+    renderResults(data.rekomendasi, lat, lon);
+
+  } catch(err) {
+    document.getElementById('results-body').innerHTML =
+      `<div class="empty-state" style="color:#ef9a9a;">Error: ${err.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔍 Cari Rute Evakuasi';
+  }
+}
+
+// ── RENDER RISK INFO ─────────────────────────────────────────
+function renderRiskInfo(input) {
+  const riskLabels = {1:'Normal',2:'Moderate',3:'Caution',4:'Critical'};
+  const riskClass  = {1:'risk-1',2:'risk-2',3:'risk-3',4:'risk-4'};
+  const rl = input.risk_level;
+
+  document.getElementById('risk-section').style.display = 'block';
+  document.getElementById('risk-info').innerHTML = `
+    <div class="info-row"><span class="key">Rolling 3 Hari</span><span class="val">${input.rolling3} mm</span></div>
+    <div class="info-row"><span class="key">Risk Level</span><span class="val"><span class="risk-badge ${riskClass[rl]}">${rl} — ${riskLabels[rl]}</span></span></div>
+    <div class="info-row"><span class="key">Risk Weight</span><span class="val">${input.risk_weight.toFixed(3)}</span></div>
+    <div class="info-row"><span class="key">RR Hari Ini</span><span class="val">${input.rr} mm</span></div>
+    <div class="info-row"><span class="key">RH</span><span class="val">${input.rh}%</span></div>
+  `;
+}
+
+// ── RENDER ROUTE CARDS ───────────────────────────────────────
+function renderResults(recs, latSrc, lonSrc) {
+  const colors = { Fastest:'#e53935', Safest:'#43a047', Balanced:'#fb8c00' };
+  const emojis = { Fastest:'⚡', Safest:'🛡️', Balanced:'⚖️' };
+
+  let html = '';
+  recs.forEach((r, i) => {
+    const cls = r.strategy.toLowerCase();
+    html += `
+      <div class="route-card ${cls}" onclick="focusRoute(${i})">
+        <div class="strategy-label">${emojis[r.strategy]} ${r.strategy}</div>
+        <div class="shelter-name">${r.shelter}</div>
+        <div class="route-stats">
+          <span>📍 ${r.jarak_km_matrix?.toFixed(2) ?? '?'} km (geo)</span>
+          ${r.jarak_aktual_km ? `<span>🛣️ ${r.jarak_aktual_km} km (jalan)</span>` : ''}
+          ${r.estimasi_waktu_menit ? `<span>⏱️ ${r.estimasi_waktu_menit} menit</span>` : ''}
+        </div>
+        <div class="proba-bar">
+          ${['Fastest','Safest','Balanced'].map(k => `
+            <div class="bar-row">
+              <span class="bar-label">${k}</span>
+              <div class="bar-bg"><div class="bar-fill" style="width:${(r.proba[k]*100).toFixed(0)}%;background:${colors[k]}"></div></div>
+              <span class="bar-val">${(r.proba[k]*100).toFixed(0)}%</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+
+    // Plot rute di peta
+    if (r.route_coords && r.route_coords.length > 0) {
+      const line = L.polyline(r.route_coords, {
+        color: colors[r.strategy], weight: i===0 ? 5 : 3,
+        opacity: i===0 ? 0.9 : 0.5,
+        dashArray: i===0 ? null : '8,6'
+      }).addTo(map);
+      routeLayers.push(line);
+
+      if (i === 0) map.fitBounds(line.getBounds(), {padding:[30,30]});
+    }
+
+    // Marker shelter
+    const sm = L.marker([r.lat_shelter, r.lon_shelter], {
+      icon: L.divIcon({
+        className: '',
+        html: `<div style="background:${colors[r.strategy]};color:#fff;padding:3px 7px;border-radius:4px;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.4)">${r.strategy}</div>`,
+        iconAnchor: [20, 0]
+      })
+    }).addTo(map).bindPopup(`<b>${r.shelter}</b><br>${r.strategy}<br>${r.jarak_km_matrix?.toFixed(2)} km`);
+    shelterMarkers.push(sm);
+  });
+
+  document.getElementById('results-body').innerHTML = html;
+}
+
+function focusRoute(idx) {
+  if (routeLayers[idx]) map.fitBounds(routeLayers[idx].getBounds(), {padding:[40,40]});
+}
+</script>
+</body>
+</html>

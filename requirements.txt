@@ -1,0 +1,9 @@
+flask==3.0.3
+gunicorn==22.0.0
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.5.1
+osmnx==1.9.3
+networkx==3.3
+folium==0.17.0
+requests==2.32.3
